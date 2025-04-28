@@ -1,6 +1,6 @@
-/*Escriba un programa que lea tres números y si el primero es positivo calcule el producto de los otros dos,
-en otro caso calcule la suma.*/
-
+//Escriba un programa que lea tres números y si el primero es positivo calcule el producto de los otros dos,
+//en otro caso calcule la suma.
+package tp3;
 import java.util.Scanner;
 
 public class Ejerc1{

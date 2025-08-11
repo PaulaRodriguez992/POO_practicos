@@ -1,4 +1,4 @@
-package tp5_part2.tp5;
+package tp4;
 
 public class Provincia {
     private String nombre;

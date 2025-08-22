@@ -1,75 +1,74 @@
 package tp7P1;
 
-import java.util.Vector;
-
-// Clase que representa una matriz dinámica de objetos usando Vector
 public class MatrizObjetos {
-    // Tamaños máximos permitidos
+
+    // Valores máximos permitidos para filas y columnas
     static int max_rows = 200;
     static int max_cols = 200;
 
-    // Array de vectores (cada vector es una fila)
-    private Vector<Object>[] cuerpo;
+    // La matriz en sí, representada como un arreglo de "Vector"
+    private Vector[] cuerpo;
 
-    // Constructor: valida dimensiones y crea la matriz
+    // Constructor con validaciones
     public MatrizObjetos(int columnas, int filas) throws MatrizException {
-        validarDimensiones(columnas, filas);
-
-        // Creación segura de un array de vectores con generics
-        @SuppressWarnings("unchecked")
-        Vector<Object>[] temp = (Vector<Object>[]) new Vector<?>[filas];
-        cuerpo = temp;
-
-        // Inicializamos cada fila como un Vector con capacidad inicial = columnas
-        for (int i = 0; i < filas; i++) {
-            cuerpo[i] = new Vector<Object>(columnas);
-        }
-    }
-
-    // Valida que las dimensiones sean correctas antes de crear la matriz
-    private void validarDimensiones(int columnas, int filas) throws MatrizException {
+        // Primero valido que las dimensiones sean positivas
         if (columnas <= 0 || filas <= 0) {
-            throw new MatrizException(MatrizException.ERR_DIMENSIONES_NEGATIVAS);
+            throw new MatrizNegativa();
         }
+        // Valido que no exceda columnas máximas
         if (columnas > max_cols) {
             throw new MatrizException(MatrizException.ERR_COLUMNAS_EXCEDIDAS);
         }
+        // Valido que no exceda filas máximas
         if (filas > max_rows) {
             throw new MatrizException(MatrizException.ERR_FILAS_EXCEDIDAS);
         }
+
+        // Si pasó todas las validaciones, inicializo la matriz
+        cuerpo = new Vector[filas];
+        for (int i = 0; i < filas; i++) {
+            cuerpo[i] = new Vector(columnas);
+        }
     }
 
-    // Valida que los índices de fila y columna estén dentro de los límites
-    private void validarIndices(int row, int col) throws MatrizException {
+    // Método para asignar un valor en una posición
+    public void setRowCol(int row, int col, Object obj) throws MatrizException {
+        // Valido que la fila esté dentro del rango
         if (row < 0 || row >= cuerpo.length) {
             throw new MatrizException(MatrizException.ERR_FILA_FUERA_DE_RANGO);
         }
-        if (col < 0 || col >= max_cols) {
+        // Valido que la columna esté dentro del rango
+        if (col < 0 || col >= cuerpo[row].size()) {
             throw new MatrizException(MatrizException.ERR_COLUMNA_FUERA_DE_RANGO);
         }
-    }
-
-    // Inserta un objeto en la posición [row][col]
-    public void setRowCol(int row, int col, Object obj) throws MatrizException {
-        validarIndices(row, col); // Programación defensiva
+        // Si está todo bien, asigno el valor
         cuerpo[row].add(col, obj);
     }
 
-    // Devuelve el objeto almacenado en la posición [row][col]
+    // Método para obtener un valor de la matriz
     public Object getRowCol(int row, int col) throws MatrizException {
-        validarIndices(row, col); // Programación defensiva
+        // Valido fila
+        if (row < 0 || row >= cuerpo.length) {
+            throw new MatrizException(MatrizException.ERR_FILA_FUERA_DE_RANGO);
+        }
+        // Valido columna
+        if (col < 0 || col >= cuerpo[row].size()) {
+            throw new MatrizException(MatrizException.ERR_COLUMNA_FUERA_DE_RANGO);
+        }
+        // Devuelvo el elemento
         return cuerpo[row].elementAt(col);
     }
 
-    // Devuelve todos los elementos en formato String
+    // Método para mostrar toda la matriz en texto
     @Override
     public String toString() {
         StringBuilder staux = new StringBuilder();
-        for (Vector<Object> fila : cuerpo) {
-            for (Object obj : fila) {
-                staux.append(obj).append(" ");
+        for (Vector fila : cuerpo) {
+            for (int j = 0; j < fila.size(); j++) {
+                staux.append(fila.elementAt(j)).append(" ");
             }
+            staux.append("\n");
         }
-        return staux.toString().trim();
+        return staux.toString();
     }
 }

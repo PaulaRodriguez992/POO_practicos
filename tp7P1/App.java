@@ -6,7 +6,7 @@ public class App {
         // Prueba 1: Intento crear matriz con columnas negativas
         try {
             System.out.println("Prueba 1: Matriz con columnas negativas");
-            MatrizObjetos m1 = new MatrizObjetos(-5, 3);
+             new MatrizObjetos(-5, 3);
         } catch (MatrizException e) {
             System.out.println("Se capturó: " + e);
         }

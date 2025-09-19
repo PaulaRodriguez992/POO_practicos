@@ -5,7 +5,7 @@ public class App {
         // Prueba 1: Constructor con nombre inválido
         try {
             System.out.println("Prueba 1: Nombre inválido");
-            Empleado e1 = new Empleado("Jo", 1000);
+            //Empleado e1 = new Empleado("Jo", 1000);
         } catch (Exception e) {
             System.out.println("Se capturó: " + e.getMessage());
         }
@@ -13,7 +13,7 @@ public class App {
         // Prueba 2: Constructor con sueldo inválido
         try {
             System.out.println("\nPrueba 2: Sueldo inválido");
-            Empleado e2 = new Empleado("Juan", -500);
+            //Empleado e2 = new Empleado("Juan", -500);
         } catch (Exception e) {
             System.out.println("Se capturó: " + e.getMessage());
         }
